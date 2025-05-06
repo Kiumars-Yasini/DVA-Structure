@@ -1,4 +1,10 @@
-% === DVA – All 41 Cycles (Filtered, Smoothed, Colored) ===
+clc; clear; close all;
+load("_________.mat");
+
+cycle_values = cell_struct.equivalent_cycle_count;  % Actual cycle values
+cycle_min = min(cycle_values);  % Define cycle_min
+cycle_max = max(cycle_values);  % Define cycle_max
+
 figure('Name','DVA – All Cycles','NumberTitle','off'); 
 hold on; grid on;
 cmap = jet(41);  % Color gradient from blue (early) to red (late)
@@ -45,4 +51,10 @@ ylabel('dV/dQ (V/Ah)');
 title('DVA – All 41 Cycles (Smoothed & Filtered)');
 ylim([-1, 1]);  % Focused Y-axis for peaks
 colormap(jet(41));
-colorbar('Ticks', linspace(0,1,5), 'TickLabels', {'1','11','21','31','41'});
+
+% Colorbar
+cb = colorbar;
+clim([cycle_min cycle_max]);  % Apply cycle_min and cycle_max to the color axis
+cb.Ticks = linspace(cycle_min, cycle_max, 5);  % Create 5 ticks for the colorbar
+cb.TickLabels = arrayfun(@(v) sprintf('%.0f', v), cb.Ticks, 'UniformOutput', false);  % Format tick labels
+cb.Label.String = 'Cycle Value';
