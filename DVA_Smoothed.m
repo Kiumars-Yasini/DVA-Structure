@@ -1,7 +1,7 @@
 clc; clear all; close all;
 
 % Load data
-load("SAR_ANR26650M1B_A_1_3.mat");
+load("_________.mat");
 
 % Parameters
 Cellnum = 1;
